@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuestionForm xmlns="http://mechanicalturk.amazonaws.com/AWSMechanicalTurkDataSchemas/2005-10-01/QuestionForm.xsd">
+<Overview>
+  <Title>Furniture Similarity</Title>
+  <Binary>
+    <MimeType>
+      <Type>image</Type>
+    </MimeType>
+    <DataURL>http://www.ikea.com/PIAimages/0153176_PE311442_S3.JPG</DataURL>
+    <AltText>Furniture</AltText>
+   </Binary>
+  <Binary>
+    <MimeType>
+      <Type>image</Type>
+    </MimeType>
+    <DataURL>http://www.ikea.com/PIAimages/0153176_PE311442_S3.JPG</DataURL>
+    <AltText>Furniture</AltText>
+   </Binary>
+ </Overview>
+  <Question>
+   <QuestionIdentifier>1</QuestionIdentifier>
+   <QuestionContent>
+     <Text>How similar are these two pieces of furniture (on a scale of 1 to 5)?</Text>
+   </QuestionContent>
+   <AnswerSpecification>
+<SelectionAnswer>
+  <StyleSuggestion>radiobutton</StyleSuggestion>
+  <Selections>
+    <Selection>
+      <SelectionIdentifier>C1</SelectionIdentifier>
+      <Text>1 (not similar)</Text>
+    </Selection>
+    <Selection>
+      <SelectionIdentifier>C2</SelectionIdentifier>
+      <Text>2 (somewhat similar)</Text>
+    </Selection>
+    <Selection>
+      <SelectionIdentifier>A3</SelectionIdentifier>
+      <Text>3 (similar)</Text>
+    </Selection>
+    <Selection>
+      <SelectionIdentifier>C3</SelectionIdentifier>
+      <Text>4 (very similar)</Text>
+    </Selection>
+      <Selection>
+      <SelectionIdentifier>C4</SelectionIdentifier>
+      <Text>5 (nearly identical)</Text>
+    </Selection>
+  </Selections>  
+     </SelectionAnswer>
+   </AnswerSpecification>
+  </Question>
+</QuestionForm>
