@@ -13,6 +13,7 @@ class FileUtils
 		allFiles.each do |f|
 			self.furniture.concat(loadFurntureData(f))
 		end
+		puts furniture.class
 		return furniture
 	end
 
@@ -20,7 +21,7 @@ class FileUtils
 		puts "processing" + fn
 		output = Array.new
 		content = File.open(fn, "r:iso-8859-1")
-		content.each_line do |row|
+		content.each_line("\r") do |row|
 			name, url = row.delete("\"").split(',')
 			idx = url.index(".JPG")
 			if idx == nil
@@ -30,10 +31,9 @@ class FileUtils
 				idx = url.length-1
 			else
 				idx += 3
-			end
-			data = {"name" => name, "url" => url[0..idx]}
-			output << data
-			# puts data
+			end		
+
+			output << {"name" => name, "url" => url[0..idx]}
 		end
 		content.close
 		return output

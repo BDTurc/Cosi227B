@@ -13,15 +13,25 @@ class AutoHits
 	def initialize
 		@mturk = Amazon::WebServices::MechanicalTurkRequester.new :Host => :Sandbox
     fu = FileUtils.new
-    100.times do
-      img1 = fu.furniture.sample["url"]
-      img2 = fu.furniture.sample["url"]
-      editXML(img1,img2)
-		  createNewHit
+    sample = fu.furniture.sample(200)
+
+    n = 0
+    while (n<=199) 
+        m = n+1        
+        while (m <= 199)
+          img1 = sample[n]["url"]
+          img2 = sample[m]["url"]
+          img3 = sample[m+1]["url"]
+          img4 = sample[m+2]["url"]       
+          m+=3
+          editXML(img1,img2,img3,img4)
+    		  createNewHit(sample[n],sample[m])
+        end
+        m += 4
     end
 	end
 
-	def createNewHit
+	def createNewHit(item1,item2)
   	 title = "Furniture Comparison"
   	 desc = "This is a single question to determine how similar two pieces of furniture are ."
   	 keywords = "furniture, survey"
@@ -41,7 +51,12 @@ class AutoHits
    	  puts "Created HIT: #{result[:HITId]}"
   	  puts "HIT Location: #{getHITUrl( result[:HITTypeId] )}"
       rootDir = File.dirname $0;
-      Amazon::Util::DataReader.save( File.join( rootDir, "hits_created" ), [{:HITId => result[:HITId] }], :Tabular )
+      Amazon::Util::DataReader.save( File.join( rootDir, "hits_created" ), [{:HITId => result[:HITId], 
+                                                                            :Name1 => item1["name"], 
+                                                                            :Name2 => item2["name"],
+                                                                            :Url1 => item1["url"],                                                                             
+                                                                            :Url2 => item2["url"],                                                                             
+                                                                            }], :Tabular )
 
    	end
 
