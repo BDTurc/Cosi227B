@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QuestionForm xmlns="http://mechanicalturk.amazonaws.com/AWSMechanicalTurkDataSchemas/2005-10-01/QuestionForm.xsd">
 <Overview>
-  <Title>Furniture Similarity</Title>
+  <Title>Furniture</Title>
   <Binary>
     <MimeType>
       <Type>image</Type>
@@ -18,33 +18,50 @@
    </Binary>
  </Overview>
   <Question>
-   <QuestionIdentifier>1</QuestionIdentifier>
+   <QuestionIdentifier>Complementary</QuestionIdentifier>
    <QuestionContent>
-     <Text>How similar are these two pieces of furniture (on a scale of 1 to 5)?</Text>
+     <Text>Would these two pieces of furniture complement each other in the same room?</Text>
    </QuestionContent>
    <AnswerSpecification>
 <SelectionAnswer>
   <StyleSuggestion>radiobutton</StyleSuggestion>
   <Selections>
     <Selection>
-      <SelectionIdentifier>C1</SelectionIdentifier>
-      <Text>1 (not similar)</Text>
+      <SelectionIdentifier>Complement</SelectionIdentifier>
+      <Text>Yes</Text>
     </Selection>
     <Selection>
-      <SelectionIdentifier>C2</SelectionIdentifier>
-      <Text>2 (somewhat similar)</Text>
+      <SelectionIdentifier>NoComplement</SelectionIdentifier>
+      <Text>No</Text>
+    </Selection>
+  </Selections>  
+     </SelectionAnswer>
+   </AnswerSpecification>
+  </Question>
+ <Question>
+   <QuestionIdentifier>Similarity</QuestionIdentifier>
+   <QuestionContent>
+     <Text>How alike do these two pieces of furniture look?</Text>
+   </QuestionContent>
+   <AnswerSpecification>
+<SelectionAnswer>
+  <StyleSuggestion>radiobutton</StyleSuggestion>
+  <Selections>
+    <Selection>
+      <SelectionIdentifier>NotAlike</SelectionIdentifier>
+      <Text>Not Alike</Text>
     </Selection>
     <Selection>
-      <SelectionIdentifier>A3</SelectionIdentifier>
-      <Text>3 (similar)</Text>
+      <SelectionIdentifier>SomewhatAlike</SelectionIdentifier>
+      <Text>Somewhat Alike</Text>
     </Selection>
     <Selection>
-      <SelectionIdentifier>C3</SelectionIdentifier>
-      <Text>4 (very similar)</Text>
+      <SelectionIdentifier>VeryAlike</SelectionIdentifier>
+      <Text>Very Alike</Text>
     </Selection>
-      <Selection>
-      <SelectionIdentifier>C4</SelectionIdentifier>
-      <Text>5 (nearly identical)</Text>
+    <Selection>
+      <SelectionIdentifier>Identical</SelectionIdentifier>
+      <Text>Identical</Text>
     </Selection>
   </Selections>  
      </SelectionAnswer>
