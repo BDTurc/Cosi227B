@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QuestionForm xmlns="http://mechanicalturk.amazonaws.com/AWSMechanicalTurkDataSchemas/2005-10-01/QuestionForm.xsd">
 <Overview>
-  <Title>Furniture</Title>
-  <Binary>
+  <Title>Furniture Comparisons</Title>
+</Overview>
+  <Question>
+   <QuestionIdentifier>ComplementaryOne</QuestionIdentifier>
+   <QuestionContent>
+    <Binary>
     <MimeType>
       <Type>image</Type>
     </MimeType>
@@ -16,52 +20,89 @@
     <DataURL><%= @imageTwo %></DataURL>
     <AltText>Furniture</AltText>
    </Binary>
- </Overview>
-  <Question>
-   <QuestionIdentifier>Complementary</QuestionIdentifier>
-   <QuestionContent>
-     <Text>Would these two pieces of furniture complement each other in the same room?</Text>
+     <Text>Would the above two pieces of furniture complement each other in the same room?</Text>
    </QuestionContent>
    <AnswerSpecification>
 <SelectionAnswer>
   <StyleSuggestion>radiobutton</StyleSuggestion>
   <Selections>
     <Selection>
-      <SelectionIdentifier>Complement</SelectionIdentifier>
+      <SelectionIdentifier>Yes</SelectionIdentifier>
       <Text>Yes</Text>
     </Selection>
     <Selection>
-      <SelectionIdentifier>NoComplement</SelectionIdentifier>
+      <SelectionIdentifier>No</SelectionIdentifier>
       <Text>No</Text>
     </Selection>
   </Selections>  
      </SelectionAnswer>
    </AnswerSpecification>
   </Question>
- <Question>
-   <QuestionIdentifier>Similarity</QuestionIdentifier>
+    <Question>
+   <QuestionIdentifier>ComplementaryTwo</QuestionIdentifier>
    <QuestionContent>
-     <Text>How alike do these two pieces of furniture look?</Text>
+    <Binary>
+    <MimeType>
+      <Type>image</Type>
+    </MimeType>
+    <DataURL><%= @imageOne %></DataURL>
+    <AltText>Furniture</AltText>
+   </Binary>
+  <Binary>
+    <MimeType>
+      <Type>image</Type>
+    </MimeType>
+    <DataURL><%= @imageThree %></DataURL>
+    <AltText>Furniture</AltText>
+   </Binary>
+     <Text>Would the above two pieces of furniture complement each other in the same room?</Text>
    </QuestionContent>
    <AnswerSpecification>
 <SelectionAnswer>
   <StyleSuggestion>radiobutton</StyleSuggestion>
   <Selections>
     <Selection>
-      <SelectionIdentifier>NotAlike</SelectionIdentifier>
-      <Text>Not Alike</Text>
+      <SelectionIdentifier>Yes</SelectionIdentifier>
+      <Text>Yes</Text>
     </Selection>
     <Selection>
-      <SelectionIdentifier>SomewhatAlike</SelectionIdentifier>
-      <Text>Somewhat Alike</Text>
+      <SelectionIdentifier>No</SelectionIdentifier>
+      <Text>No</Text>
+    </Selection>
+  </Selections>  
+     </SelectionAnswer>
+   </AnswerSpecification>
+  </Question>
+    <Question>
+   <QuestionIdentifier>ComplementaryThree</QuestionIdentifier>
+   <QuestionContent>
+    <Binary>
+    <MimeType>
+      <Type>image</Type>
+    </MimeType>
+    <DataURL><%= @imageOne %></DataURL>
+    <AltText>Furniture</AltText>
+   </Binary>
+  <Binary>
+    <MimeType>
+      <Type>image</Type>
+    </MimeType>
+    <DataURL><%= @imageFour %></DataURL>
+    <AltText>Furniture</AltText>
+   </Binary>
+     <Text>Would the above two pieces of furniture complement each other in the same room?</Text>
+   </QuestionContent>
+   <AnswerSpecification>
+<SelectionAnswer>
+  <StyleSuggestion>radiobutton</StyleSuggestion>
+  <Selections>
+    <Selection>
+      <SelectionIdentifier>Yes</SelectionIdentifier>
+      <Text>Yes</Text>
     </Selection>
     <Selection>
-      <SelectionIdentifier>VeryAlike</SelectionIdentifier>
-      <Text>Very Alike</Text>
-    </Selection>
-    <Selection>
-      <SelectionIdentifier>Identical</SelectionIdentifier>
-      <Text>Identical</Text>
+      <SelectionIdentifier>No</SelectionIdentifier>
+      <Text>No</Text>
     </Selection>
   </Selections>  
      </SelectionAnswer>
