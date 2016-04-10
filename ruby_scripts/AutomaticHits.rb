@@ -3,7 +3,7 @@ require 'erb'
 require './FileUtils.rb'
 
 class Binder
-  attr_accessor :imageOne, :imageTwo
+  attr_accessor :imageOne, :imageTwo, :imageThree, :imageFour
   def template_binding
     binding
   end
@@ -33,7 +33,7 @@ class AutoHits
 
 	def createNewHit(item1,item2)
   	 title = "Furniture Comparison"
-  	 desc = "This is a single question to determine how similar two pieces of furniture are ."
+  	 desc = "Two question survey to determine if two pieces of furniture look good together"
   	 keywords = "furniture, survey"
   	 numAssignments = 3
    	 rewardAmount = 0.01
@@ -74,7 +74,6 @@ class AutoHits
       new_file.close
     end
 end
-
 
 AutoHits.new()
 
