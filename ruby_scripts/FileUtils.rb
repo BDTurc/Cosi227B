@@ -13,7 +13,6 @@ class FileUtils
 		allFiles.each do |f|
 			self.furniture.concat(loadFurntureData(f))
 		end
-		puts furniture.class
 		return furniture
 	end
 
@@ -39,7 +38,3 @@ class FileUtils
 		return output
 	end
 end
-
-fu = FileUtils.new
-
-puts fu.furniture

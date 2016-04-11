@@ -1,67 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QuestionForm xmlns="http://mechanicalturk.amazonaws.com/AWSMechanicalTurkDataSchemas/2005-10-01/QuestionForm.xsd">
 <Overview>
-  <Title>Furniture</Title>
-  <Binary>
-    <MimeType>
-      <Type>image</Type>
-    </MimeType>
-    <DataURL>http://www.ikea.com/PIAimages/0406303_PE583241_S3.JPG</DataURL>
-    <AltText>Furniture</AltText>
-   </Binary>
-  <Binary>
-    <MimeType>
-      <Type>image</Type>
-    </MimeType>
-    <DataURL>http://www.ikea.com/PIAimages/0325791_PE529546_S3.JPG</DataURL>
-    <AltText>Furniture</AltText>
-   </Binary>
- </Overview>
+  <Title>Furniture Comparisons</Title>
+</Overview>
   <Question>
-   <QuestionIdentifier>Complementary</QuestionIdentifier>
+   <QuestionIdentifier>ComplementaryOne</QuestionIdentifier>
    <QuestionContent>
-     <Text>Would these two pieces of furniture complement each other in the same room?</Text>
+    <Binary>
+    <MimeType>
+      <Type>image</Type>
+    </MimeType>
+    <DataURL>http://www.ikea.com/PIAimages/0152001_PE310343_S3.JPG</DataURL>
+    <AltText>Furniture</AltText>
+   </Binary>
+  <Binary>
+    <MimeType>
+      <Type>image</Type>
+    </MimeType>
+    <DataURL>http://www.ikea.com/PIAimages/0386183_PE559142_S3.JPG</DataURL>
+    <AltText>Furniture</AltText>
+   </Binary>
+     <Text>Would the above two pieces of furniture complement each other in the same room?</Text>
    </QuestionContent>
    <AnswerSpecification>
 <SelectionAnswer>
   <StyleSuggestion>radiobutton</StyleSuggestion>
   <Selections>
     <Selection>
-      <SelectionIdentifier>Complement</SelectionIdentifier>
+      <SelectionIdentifier>Yes</SelectionIdentifier>
       <Text>Yes</Text>
     </Selection>
     <Selection>
-      <SelectionIdentifier>NoComplement</SelectionIdentifier>
+      <SelectionIdentifier>No</SelectionIdentifier>
       <Text>No</Text>
     </Selection>
   </Selections>  
      </SelectionAnswer>
    </AnswerSpecification>
   </Question>
- <Question>
-   <QuestionIdentifier>Similarity</QuestionIdentifier>
+    <Question>
+   <QuestionIdentifier>ComplementaryTwo</QuestionIdentifier>
    <QuestionContent>
-     <Text>How alike do these two pieces of furniture look?</Text>
+    <Binary>
+    <MimeType>
+      <Type>image</Type>
+    </MimeType>
+    <DataURL>http://www.ikea.com/PIAimages/0152001_PE310343_S3.JPG</DataURL>
+    <AltText>Furniture</AltText>
+   </Binary>
+  <Binary>
+    <MimeType>
+      <Type>image</Type>
+    </MimeType>
+    <DataURL>http://www.ikea.com/PIAimages/0410033_PE573173_S3.JPG</DataURL>
+    <AltText>Furniture</AltText>
+   </Binary>
+     <Text>Would the above two pieces of furniture complement each other in the same room?</Text>
    </QuestionContent>
    <AnswerSpecification>
 <SelectionAnswer>
   <StyleSuggestion>radiobutton</StyleSuggestion>
   <Selections>
     <Selection>
-      <SelectionIdentifier>NotAlike</SelectionIdentifier>
-      <Text>Not Alike</Text>
+      <SelectionIdentifier>Yes</SelectionIdentifier>
+      <Text>Yes</Text>
     </Selection>
     <Selection>
-      <SelectionIdentifier>SomewhatAlike</SelectionIdentifier>
-      <Text>Somewhat Alike</Text>
+      <SelectionIdentifier>No</SelectionIdentifier>
+      <Text>No</Text>
+    </Selection>
+  </Selections>  
+     </SelectionAnswer>
+   </AnswerSpecification>
+  </Question>
+    <Question>
+   <QuestionIdentifier>ComplementaryThree</QuestionIdentifier>
+   <QuestionContent>
+    <Binary>
+    <MimeType>
+      <Type>image</Type>
+    </MimeType>
+    <DataURL>http://www.ikea.com/PIAimages/0152001_PE310343_S3.JPG</DataURL>
+    <AltText>Furniture</AltText>
+   </Binary>
+  <Binary>
+    <MimeType>
+      <Type>image</Type>
+    </MimeType>
+    <DataURL>https://secure.img1.wfrcdn.com/lf/79/hash/30593/27811342/1/Kelsie%2BConvertible%2BSofa.jpg</DataURL>
+    <AltText>Furniture</AltText>
+   </Binary>
+     <Text>Would the above two pieces of furniture complement each other in the same room?</Text>
+   </QuestionContent>
+   <AnswerSpecification>
+<SelectionAnswer>
+  <StyleSuggestion>radiobutton</StyleSuggestion>
+  <Selections>
+    <Selection>
+      <SelectionIdentifier>Yes</SelectionIdentifier>
+      <Text>Yes</Text>
     </Selection>
     <Selection>
-      <SelectionIdentifier>VeryAlike</SelectionIdentifier>
-      <Text>Very Alike</Text>
-    </Selection>
-    <Selection>
-      <SelectionIdentifier>Identical</SelectionIdentifier>
-      <Text>Identical</Text>
+      <SelectionIdentifier>No</SelectionIdentifier>
+      <Text>No</Text>
     </Selection>
   </Selections>  
      </SelectionAnswer>
