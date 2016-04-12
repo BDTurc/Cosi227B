@@ -10,14 +10,14 @@
     <MimeType>
       <Type>image</Type>
     </MimeType>
-    <DataURL>http://www.ikea.com/PIAimages/0152001_PE310343_S3.JPG</DataURL>
+    <DataURL>http://www.ikea.com/PIAimages/0346960_PE535329_S3.JPG</DataURL>
     <AltText>Furniture</AltText>
    </Binary>
   <Binary>
     <MimeType>
       <Type>image</Type>
     </MimeType>
-    <DataURL>http://www.ikea.com/PIAimages/0386183_PE559142_S3.JPG</DataURL>
+    <DataURL>http://www.ikea.com/PIAimages/0114756_PE267703_S3.JPG</DataURL>
     <AltText>Furniture</AltText>
    </Binary>
      <Text>Would the above two pieces of furniture complement each other in the same room?</Text>
@@ -45,14 +45,14 @@
     <MimeType>
       <Type>image</Type>
     </MimeType>
-    <DataURL>http://www.ikea.com/PIAimages/0152001_PE310343_S3.JPG</DataURL>
+    <DataURL>http://www.ikea.com/PIAimages/0346960_PE535329_S3.JPG</DataURL>
     <AltText>Furniture</AltText>
    </Binary>
   <Binary>
     <MimeType>
       <Type>image</Type>
     </MimeType>
-    <DataURL>http://www.ikea.com/PIAimages/0410033_PE573173_S3.JPG</DataURL>
+    <DataURL>http://www.ikea.com/PIAimages/0114756_PE267703_S3.JPG</DataURL>
     <AltText>Furniture</AltText>
    </Binary>
      <Text>Would the above two pieces of furniture complement each other in the same room?</Text>
@@ -80,14 +80,14 @@
     <MimeType>
       <Type>image</Type>
     </MimeType>
-    <DataURL>http://www.ikea.com/PIAimages/0152001_PE310343_S3.JPG</DataURL>
+    <DataURL>http://www.ikea.com/PIAimages/0346960_PE535329_S3.JPG</DataURL>
     <AltText>Furniture</AltText>
    </Binary>
   <Binary>
     <MimeType>
       <Type>image</Type>
     </MimeType>
-    <DataURL>https://secure.img1.wfrcdn.com/lf/79/hash/30593/27811342/1/Kelsie%2BConvertible%2BSofa.jpg</DataURL>
+    <DataURL>http://www.ikea.com/PIAimages/0349638_PE538783_S3.JPG</DataURL>
     <AltText>Furniture</AltText>
    </Binary>
      <Text>Would the above two pieces of furniture complement each other in the same room?</Text>
@@ -108,5 +108,41 @@
      </SelectionAnswer>
    </AnswerSpecification>
   </Question>
+  <Question>
+   <QuestionIdentifier>Validator</QuestionIdentifier>
+   <QuestionContent>
+    <Binary>
+    <MimeType>
+      <Type>image</Type>
+    </MimeType>
+    <DataURL>http://www.ikea.com/PIAimages/0346960_PE535329_S3.JPG</DataURL>
+    <AltText>Furniture</AltText>
+   </Binary>
+  <Binary>
+    <MimeType>
+      <Type>image</Type>
+    </MimeType>
+    <DataURL>http://www.ikea.com/PIAimages/0344186_PE535555_S3.JPG</DataURL>
+    <AltText>Furniture</AltText>
+   </Binary>
+     <Text>Would the above two pieces of furniture complement each other in the same room?</Text>
+   </QuestionContent>
+   <AnswerSpecification>
+<SelectionAnswer>
+  <StyleSuggestion>radiobutton</StyleSuggestion>
+  <Selections>
+    <Selection>
+      <SelectionIdentifier>Yes</SelectionIdentifier>
+      <Text>Yes</Text>
+    </Selection>
+    <Selection>
+      <SelectionIdentifier>No</SelectionIdentifier>
+      <Text>No</Text>
+    </Selection>
+  </Selections>  
+     </SelectionAnswer>
+   </AnswerSpecification>
+  </Question>
+
 </QuestionForm>
 

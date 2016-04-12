@@ -108,5 +108,41 @@
      </SelectionAnswer>
    </AnswerSpecification>
   </Question>
+  <Question>
+   <QuestionIdentifier>Validator</QuestionIdentifier>
+   <QuestionContent>
+    <Binary>
+    <MimeType>
+      <Type>image</Type>
+    </MimeType>
+    <DataURL><%= @imageOne %></DataURL>
+    <AltText>Furniture</AltText>
+   </Binary>
+  <Binary>
+    <MimeType>
+      <Type>image</Type>
+    </MimeType>
+    <DataURL><%= @imageFive %></DataURL>
+    <AltText>Furniture</AltText>
+   </Binary>
+     <Text>Would the above two pieces of furniture complement each other in the same room?</Text>
+   </QuestionContent>
+   <AnswerSpecification>
+<SelectionAnswer>
+  <StyleSuggestion>radiobutton</StyleSuggestion>
+  <Selections>
+    <Selection>
+      <SelectionIdentifier>Yes</SelectionIdentifier>
+      <Text>Yes</Text>
+    </Selection>
+    <Selection>
+      <SelectionIdentifier>No</SelectionIdentifier>
+      <Text>No</Text>
+    </Selection>
+  </Selections>  
+     </SelectionAnswer>
+   </AnswerSpecification>
+  </Question>
+
 </QuestionForm>
 
