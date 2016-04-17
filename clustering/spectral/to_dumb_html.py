@@ -5,7 +5,7 @@ def img_to_tag(url):
     return "<img width=\"100px\" src=\"" + url + "\" />"
 
 
-with open("ap/clusters.txt") as f:
+with open("spectral/clusters.txt") as f:
     for l in f:
         fields = l.split()
         url = fields[0]
