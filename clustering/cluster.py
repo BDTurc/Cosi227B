@@ -1,5 +1,7 @@
 import numpy as np
 from sklearn.cluster import AffinityPropagation
+from sklearn.cluster import SpectralClustering
+
 
 all_urls = []
 urls = dict()
@@ -77,7 +79,9 @@ sim_matrix = np.sqrt(sim_matrix)
 
 np.savetxt("sim_mat.txt", sim_matrix)
 
-clst = AffinityPropagation()
+
+clst = AffinityPropagation(affinity='precomputed')
+#clst = SpectralClustering(affinity='precomputed')
 classes = clst.fit_predict(sim_matrix)
 
 
