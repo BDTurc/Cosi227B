@@ -81,12 +81,11 @@ np.savetxt("sim_mat.txt", sim_matrix)
 
 
 clst = AffinityPropagation(affinity='precomputed')
-#clst = SpectralClustering(affinity='precomputed')
+#clst = SpectralClustering(n_clusters=7,affinity='precomputed')
 classes = clst.fit_predict(sim_matrix)
 
 
-
-with open("centers.txt", "w") as f:
+with open("ap/centers.txt", "w") as f:
     for clst, indx in enumerate(clst.cluster_centers_indices_):
         f.write(all_urls[indx])
         f.write(" ")
@@ -94,7 +93,7 @@ with open("centers.txt", "w") as f:
         f.write("\n")
 
 
-with open("clusters.txt", "w") as f:
+with open("ap/clusters.txt", "w") as f:
     for idx, cls in enumerate(classes):
         f.write(all_urls[idx])
         f.write(" ")
