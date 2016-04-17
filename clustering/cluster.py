@@ -19,7 +19,7 @@ def get_class_for_url(url):
     return urls[url]
 
 def answer_to_value(val):
-    return 1 if val == "Yes" else 0
+    return (1 if val == "Yes" else 0)
 
 
 def record_in_matrix(class1, class2, answer):
@@ -73,6 +73,7 @@ num_classes = len(urls)
 
 sim_matrix = np.zeros((num_classes, num_classes))
 record_in_matrix(sim_matrix)
+sim_matrix = np.sqrt(sim_matrix)
 
 np.savetxt("sim_mat.txt", sim_matrix)
 
@@ -80,7 +81,21 @@ clst = AffinityPropagation()
 classes = clst.fit_predict(sim_matrix)
 
 
-for idx, cls in enumerate(classes):
-    print(all_urls[idx], cls)
+
+with open("centers.txt", "w") as f:
+    for clst, indx in enumerate(clst.cluster_centers_indices_):
+        f.write(all_urls[indx])
+        f.write(" ")
+        f.write(str(clst))
+        f.write("\n")
+
+
+with open("clusters.txt", "w") as f:
+    for idx, cls in enumerate(classes):
+        f.write(all_urls[idx])
+        f.write(" ")
+        f.write(str(cls))
+        f.write("\n")
+
 
 
