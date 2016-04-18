@@ -1,5 +1,10 @@
 class RoomCluster
-	def initialize(item)
+	def initialize(item, numSofa, numFoot, numLove, numStorage)
+		@numSofa = numSofa.to_i
+		@numFoot = numFoot.to_i
+		@numLove = numLove.to_i
+		@numStorage = numStorage.to_i
+
 		@types = Hash.new
 		@typeLookup = Hash.new
 		getTypes
@@ -137,26 +142,52 @@ class RoomCluster
 		@currentRoom[0] = item
 		type = @typeLookup[item]
 		type = type.strip
-		if type == "loveseat"
+
+		loveCount = 0
+		footCount = 0
+		sofaCount = 0
+		storCount = 0
+
+		while sofaCount < @numSofa
 			getSofa
+			sofaCount = sofaCount + 1
+		end
+
+		while loveCount < @numLove
+			getLove
+			loveCount = loveCount + 1
+		end
+
+		while storCount < @numStorage
+			getStorage
+			storCount = storCount + 1
+		end
+
+		while footCount < @numFoot
 			getFoot
-			getStorage
+			footCount = footCount + 1
 		end
-		if type == "sofa"
-			getStorage
-			getFoot 
-			getLove
-		end
-		if type == "storage"
-			getSofa
-			getLove
-			getFoot
-		end
-		if type == "footstool"
-			getSofa
-			getLove
-			getStorage
-		end
+
+		# if type == "loveseat"
+		# 	getSofa
+		# 	getFoot
+		# 	getStorage
+		# end
+		# if type == "sofa"
+		# 	getStorage
+		# 	getFoot 
+		# 	getLove
+		# end
+		# if type == "storage"
+		# 	getSofa
+		# 	getLove
+		# 	getFoot
+		# end
+		# if type == "footstool"
+		# 	getSofa
+		# 	getLove
+		# 	getStorage
+		# end
 		@room = File.open("room.html", "w")
 		@room.puts "<html><head><title>Room</title></head><body>"
 		@currentRoom.each do | furn |
@@ -175,84 +206,14 @@ class RoomCluster
 		sofaScore = Hash.new
 		sofas = @types["sofa"]
 		sofas.each do | sofa |
-			sofaScore[sofa] = 0.0
-			@currentRoom.each do | currentPiece |
-				hash = @mainHash[currentPiece]
-				if hash.has_key? sofa
-					sofaScore[sofa] = sofaScore[sofa] + (hash[sofa][0] / (1.0 * hash[sofa][1]))
-				else
-					hash = @mainHash[sofa]
-					if hash.has_key? currentPiece
-						sofaScore[sofa] = sofaScore[sofa] + (hash[currentPiece][0] / (1.0 * hash[currentPiece][1]))
-					end
-				end
-			end
-		end
-
-		currentBest = 0
-		winner = ""
-
-		bestPicks = Array.new
-		sofaScore.each do |k, v|
-			if v > currentBest
-				currentBest = v
-				bestPicks.clear
-				bestPicks << k
-			elsif v == currentBest
-				bestPicks << k
-			end
-		end
-
-		@currentRoom << bestPicks.sample
-	end
-
-	def getFoot
-		sofaScore = Hash.new
-		sofas = @types["footstool"]
-		sofas.each do | sofa |
-			sofaScore[sofa] = 0.0
-			@currentRoom.each do | currentPiece |
-				hash = @mainHash[currentPiece]
-				if hash.has_key? sofa
-					sofaScore[sofa] = sofaScore[sofa] + (hash[sofa][0] / (1.0 * hash[sofa][1]))
-				else
-					hash = @mainHash[sofa]
-					if hash.has_key? currentPiece
-						sofaScore[sofa] = sofaScore[sofa] + (hash[currentPiece][0] / (1.0 * hash[currentPiece][1]))
-					end
-				end
-			end
-		end
-
-		currentBest = 0
-		winner = ""
-
-		bestPicks = Array.new
-		sofaScore.each do |k, v|
-			if v > currentBest
-				currentBest = v
-				bestPicks.clear
-				bestPicks << k
-			elsif v == currentBest
-				bestPicks << k
-			end
-		end
-
-		@currentRoom << bestPicks.sample
-	end
-
-	def getStorage
-		sofaScore = Hash.new
-		sofas = @types["storage"]
-		sofas.each do | sofa |
-			sofaScore[sofa] = 0.0
-			@currentRoom.each do | currentPiece |
-				hash = @mainHash[currentPiece]
-				if hash.has_key? sofa
-					sofaScore[sofa] = sofaScore[sofa] + (hash[sofa][0] / (hash[sofa][1] * 1.0))
-				else
-					hash = @mainHash[sofa]
-					if hash != nil  
+			if !@currentRoom.include? sofa
+				sofaScore[sofa] = 0.0
+				@currentRoom.each do | currentPiece |
+					hash = @mainHash[currentPiece]
+					if hash.has_key? sofa
+						sofaScore[sofa] = sofaScore[sofa] + (hash[sofa][0] / (1.0 * hash[sofa][1]))
+					else
+						hash = @mainHash[sofa]
 						if hash.has_key? currentPiece
 							sofaScore[sofa] = sofaScore[sofa] + (hash[currentPiece][0] / (1.0 * hash[currentPiece][1]))
 						end
@@ -275,22 +236,29 @@ class RoomCluster
 			end
 		end
 
-		@currentRoom << bestPicks.sample
+		itemToAdd = bestPicks.sample
+		while @currentRoom.include? itemToAdd
+			itemToAdd = bestPicks.sample
+		end
+
+		@currentRoom << itemToAdd
 	end
 
-	def getLove
+	def getFoot
 		sofaScore = Hash.new
-		sofas = @types["loveseat"]
+		sofas = @types["footstool"]
 		sofas.each do | sofa |
-			sofaScore[sofa] = 0.0
-			@currentRoom.each do | currentPiece |
-				hash = @mainHash[currentPiece]
-				if hash.has_key? sofa
-					sofaScore[sofa] = sofaScore[sofa] + (hash[sofa][0] / (1.0 * hash[sofa][1]))
-				else
-					hash = @mainHash[sofa]
-					if hash.has_key? currentPiece
-						sofaScore[sofa] = sofaScore[sofa] + (hash[currentPiece][0] / (1.0 * hash[currentPiece][1]))
+			if !@currentRoom.include? sofa
+				sofaScore[sofa] = 0.0
+				@currentRoom.each do | currentPiece |
+					hash = @mainHash[currentPiece]
+					if hash.has_key? sofa
+						sofaScore[sofa] = sofaScore[sofa] + (hash[sofa][0] / (1.0 * hash[sofa][1]))
+					else
+						hash = @mainHash[sofa]
+						if hash.has_key? currentPiece
+							sofaScore[sofa] = sofaScore[sofa] + (hash[currentPiece][0] / (1.0 * hash[currentPiece][1]))
+						end
 					end
 				end
 			end
@@ -310,8 +278,101 @@ class RoomCluster
 			end
 		end
 
-		@currentRoom << bestPicks.sample
+		itemToAdd = bestPicks.sample
+		while @currentRoom.include? itemToAdd
+			itemToAdd = bestPicks.sample
+		end
+		
+		@currentRoom << itemToAdd
+	end
+
+	def getStorage
+		sofaScore = Hash.new
+		sofas = @types["storage"]
+		sofas.each do | sofa |
+			if !@currentRoom.include? sofa
+				sofaScore[sofa] = 0.0
+				@currentRoom.each do | currentPiece |
+					hash = @mainHash[currentPiece]
+					if hash.has_key? sofa
+						sofaScore[sofa] = sofaScore[sofa] + (hash[sofa][0] / (hash[sofa][1] * 1.0))
+					else
+						hash = @mainHash[sofa]
+						if hash != nil  
+							if hash.has_key? currentPiece
+								sofaScore[sofa] = sofaScore[sofa] + (hash[currentPiece][0] / (1.0 * hash[currentPiece][1]))
+							end
+						end
+					end
+				end
+			end
+		end
+
+		currentBest = 0
+		winner = ""
+
+		bestPicks = Array.new
+		sofaScore.each do |k, v|
+			if v > currentBest
+				currentBest = v
+				bestPicks.clear
+				bestPicks << k
+			elsif v == currentBest
+				bestPicks << k
+			end
+		end
+
+
+		itemToAdd = bestPicks.sample
+		while @currentRoom.include? itemToAdd
+			itemToAdd = bestPicks.sample
+		end
+		
+		@currentRoom << itemToAdd
+	end
+
+	def getLove
+		sofaScore = Hash.new
+		sofas = @types["loveseat"]
+		sofas.each do | sofa |
+			if !@currentRoom.include? sofa
+				sofaScore[sofa] = 0.0
+				@currentRoom.each do | currentPiece |
+					hash = @mainHash[currentPiece]
+					if hash.has_key? sofa
+						sofaScore[sofa] = sofaScore[sofa] + (hash[sofa][0] / (1.0 * hash[sofa][1]))
+					else
+						hash = @mainHash[sofa]
+						if hash.has_key? currentPiece
+							sofaScore[sofa] = sofaScore[sofa] + (hash[currentPiece][0] / (1.0 * hash[currentPiece][1]))
+						end
+					end
+				end
+			end
+		end
+
+		currentBest = 0
+		winner = ""
+
+		bestPicks = Array.new
+		sofaScore.each do |k, v|
+			if v > currentBest
+				currentBest = v
+				bestPicks.clear
+				bestPicks << k
+			elsif v == currentBest
+				bestPicks << k
+			end
+		end
+
+
+		itemToAdd = bestPicks.sample
+		while @currentRoom.include? itemToAdd
+			itemToAdd = bestPicks.sample
+		end
+		
+		@currentRoom << itemToAdd
 	end
 end
 
-RoomCluster.new(ARGV[0])
+RoomCluster.new(ARGV[0], ARGV[1], ARGV[2], ARGV[3], ARGV[4])
