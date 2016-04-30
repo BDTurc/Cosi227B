@@ -1,0 +1,1 @@
+{"room"=>{"url"=>"https://secure.img2.wfrcdn.com/lf/79/hash/2664/26742769/1/Kaylee%2BFull%2BConvertible%2BSleeper%2BSofa.jpg", "sofa"=>1, "loveseat"=>2, "footstool"=>1, "storage"=>2}}

@@ -2,8 +2,8 @@
 
 all: pre-build ap/clusters.txt ap/centers.txt spectral/clusters.txt viz_ap.html viz_spectral.html
 
-pre-build:
-	pip3 install -r requirements.txt
+
+
 
 ap/clusters.txt ap/centers.txt: results
 	python3 ap/cluster.py
@@ -23,4 +23,3 @@ clean:
 	rm -f ap/centers.txt
 	rm -f spectral/clusters.txt
 	rm -f *.html
-

@@ -1,0 +1,19 @@
+source 'https://rubygems.org'
+
+ruby '2.2.0'
+
+gem 'rake'
+gem 'sinatra', require: 'sinatra/base'
+gem 'sinatra-contrib', '1.4.6'
+# gem 'rack'
+# gem 'rack-contrib'
+# gem 'activerecord'
+# gem 'sinatra-activerecord'
+# gem 'sinatra-active-model-serializers', '0.2.0'
+
+# gem 'pg'
+
+gem 'json'
+
+gem 'better_errors', '~> 2.1.1'
+gem 'binding_of_caller', '~> 0.7.2'
