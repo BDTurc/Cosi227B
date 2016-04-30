@@ -13,7 +13,7 @@ def get_class_for_url(url):
 
     if url not in all_urls:
         all_urls.append(url)
-    
+
     if url not in urls:
         urls[url] = last_class
         last_class += 1
@@ -26,13 +26,13 @@ def answer_to_value(val):
 
 def record_in_matrix(class1, class2, answer):
     pass
-    
+
 
 def build_class_labels():
     with open("results") as f:
         for l in f:
             fields = l.split(",")
-                        
+
             imgMain = get_class_for_url(fields[2])
 
             imgOne = get_class_for_url(fields[3])
@@ -45,7 +45,7 @@ def record_in_matrix(m):
     def inc_sem(m, v1, v2, val):
         m[v1][v2] += val
         m[v2][v1] += val
-    
+
     with open("results") as f:
         for l in f:
             fields = l.split(",")
@@ -66,7 +66,7 @@ def record_in_matrix(m):
             inc_sem(m, imgMain, imgTwo, ansTwo)
             inc_sem(m, imgMain, imgThree, ansThree)
             inc_sem(m, imgMain, imgFour, ansFour)
-            
+
 
 build_class_labels()
 num_classes = len(urls)
@@ -99,6 +99,3 @@ with open("spectral/clusters.txt", "w") as f:
         f.write(" ")
         f.write(str(cls))
         f.write("\n")
-
-
-

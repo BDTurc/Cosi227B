@@ -1,3 +1,5 @@
+require 'json'
+
 class RoomCluster
 	def initialize(item, numSofa, numFoot, numLove, numStorage)
 		@numSofa = numSofa.to_i
@@ -170,11 +172,34 @@ class RoomCluster
 			footCount = footCount + 1
 		end
 
-		@room = File.open("room.html", "w")
-		@room.puts "<html><head><title>Room</title></head><body>"
-		@currentRoom.each do | furn |
-			img_to_tag furn
-		end
+		# if type == "loveseat"
+		# 	getSofa
+		# 	getFoot
+		# 	getStorage
+		# end
+		# if type == "sofa"
+		# 	getStorage
+		# 	getFoot
+		# 	getLove
+		# end
+		# if type == "storage"
+		# 	getSofa
+		# 	getLove
+		# 	getFoot
+		# end
+		# if type == "footstool"
+		# 	getSofa
+		# 	getLove
+		# 	getStorage
+		# end
+		# @room = File.open("room.html", "w")
+		# @room.puts "<html><head><title>Room</title></head><body>"
+		# @currentRoom.each do | furn |
+		# 	img_to_tag furn
+		# end
+		room = File.open("room.json","w")
+		room.write(@currentRoom.to_json)
+		room.close
 	end
 
 	def img_to_tag item
@@ -362,4 +387,4 @@ class RoomCluster
 	end
 end
 
-RoomCluster.new(ARGV[0], ARGV[1], ARGV[2], ARGV[3], ARGV[4])
+# RoomCluster.new(ARGV[0], ARGV[1], ARGV[2], ARGV[3], ARGV[4])
