@@ -170,26 +170,6 @@ class RoomCluster
 			footCount = footCount + 1
 		end
 
-		# if type == "loveseat"
-		# 	getSofa
-		# 	getFoot
-		# 	getStorage
-		# end
-		# if type == "sofa"
-		# 	getStorage
-		# 	getFoot
-		# 	getLove
-		# end
-		# if type == "storage"
-		# 	getSofa
-		# 	getLove
-		# 	getFoot
-		# end
-		# if type == "footstool"
-		# 	getSofa
-		# 	getLove
-		# 	getStorage
-		# end
 		@room = File.open("room.html", "w")
 		@room.puts "<html><head><title>Room</title></head><body>"
 		@currentRoom.each do | furn |
