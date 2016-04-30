@@ -1,17 +1,49 @@
 class Validate 
 	def initialize
-		filterBadHits
+		#filterBadHits
 		filterBadWorkers
 	end
 
+	def automaticReject(badHash)
+	    contents = File.open("results_clean0429")
+	    rejectfile = File.open("rejectFile.txt", "w")
+	    contents.each_line do | line |
+			assignmentId, workerId, hitId, imgOne, imgTwo, ansOne, imgThree, imgFour, ansTwo, 
+			imgFive, imgSix, ansThree, imgSeven, imgEight, ansFour = line.split(",")
+
+			workerId = workerId.strip
+			assignmentId = assignmentId.strip
+
+			if(badHash.has_key? workerId)
+				rejectfile.puts assignmentId
+			end
+		end
+	end
+
+	def automaticApprove(badHash)
+	    contents = File.open("results_clean0429")
+	    acceptfile = File.open("acceptFile.txt", "w")
+	    contents.each_line do | line |
+			assignmentId, workerId, hitId, imgOne, imgTwo, ansOne, imgThree, imgFour, ansTwo, 
+			imgFive, imgSix, ansThree, imgSeven, imgEight, ansFour = line.split(",")
+
+			workerId = workerId.strip
+			assignmentId = assignmentId.strip
+			
+			if(!badHash.has_key? workerId)
+				acceptfile.puts assignmentId
+			end
+		end
+	end
+
 	def filterBadWorkers
-		contents = File.open("../clustering/results")
+		contents = File.open("results_clean0429")
 
 		badHash = Hash.new
 		workerHash = Hash.new
 
 		contents.each_line do | line |
-			workerId, hitId, imgOne, imgTwo, ansOne, imgThree, imgFour, ansTwo, 
+			assignmentId, workerId, hitId, imgOne, imgTwo, ansOne, imgThree, imgFour, ansTwo, 
 			imgFive, imgSix, ansThree, imgSeven, imgEight, ansFour = line.split(",")
 
 			if(!workerHash.has_key? workerId)
@@ -64,15 +96,22 @@ class Validate
 			end
 		end
 
-		removeBadWorkers(badHash)	
+		badHash.keys.each do |key|
+			if badHash[key] < 40
+				badHash.delete(key)
+			end
+		end
+		automaticReject(badHash)
+		automaticApprove(badHash)
+		#removeBadWorkers(badHash)	
 	end
 
 	def removeBadWorkers(badHash)
 		writable = File.open("BadWorkersRemoved", "w")
-		contents = File.open("../clustering/results", "r")
+		contents = File.open("results_clean0429", "r")
 
 		contents.each_line do | line |
-			workerId, hitId, imgOne, imgTwo, ansOne, imgThree, imgFour, ansTwo, 
+			assignmentId, workerId, hitId, imgOne, imgTwo, ansOne, imgThree, imgFour, ansTwo, 
 			imgFive, imgSix, ansThree, imgSeven, imgEight, ansFour = line.split(",")
 
 			bad = false
@@ -90,10 +129,10 @@ class Validate
 
 	def filterBadHits
 		writable = File.open("BadHitsRemoved", "w")
-		contents = File.open("../clustering/results")
+		contents = File.open("results_clean0429")
 
 		contents.each_line do | line |
-			workerId, hitId, imgOne, imgTwo, ansOne, imgThree, imgFour, ansTwo, 
+			assignmentId, workerId, hitId, imgOne, imgTwo, ansOne, imgThree, imgFour, ansTwo, 
 			imgFive, imgSix, ansThree, imgSeven, imgEight, ansFour = line.split(",")
 
 			imgOne = imgOne.strip
