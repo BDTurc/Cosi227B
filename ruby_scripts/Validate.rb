@@ -101,13 +101,44 @@ class Validate
 				badHash.delete(key)
 			end
 		end
-		automaticReject(badHash)
-		automaticApprove(badHash)
+		recreate(badHash)
+		#automaticReject(badHash)
+		#automaticApprove(badHash)
 		#removeBadWorkers(badHash)	
 	end
 
+	def recreate(badHash)
+		recreateStats = File.open("recreateStats", "w")
+		contents = File.open("results_clean0429", "r")
+
+		recreateStats.puts "hitId, rejectedAssignments"
+
+		hits = Hash.new
+
+		contents.each_line do | line |
+			assignmentId, workerId, hitId, imgOne, imgTwo, ansOne, imgThree, imgFour, ansTwo, 
+			imgFive, imgSix, ansThree, imgSeven, imgEight, ansFour = line.split(",")
+
+			workerId = workerId.strip
+
+			if(badHash.has_key? workerId)
+				if(badHash[workerId] >= 30)
+					if(!hits.has_key? hitId)
+						hits[hitId] = 1
+					else
+						hits[hitId] = hits[hitId] + 1
+					end
+				end
+			end
+		end
+
+		hits.keys.each do | key |
+			recreateStats.puts "#{key},#{hits[key]}"
+		end
+	end
+
 	def removeBadWorkers(badHash)
-		writable = File.open("BadWorkersRemoved", "w")
+		writable = File.open("BadWorkersRemoved0429", "w")
 		contents = File.open("results_clean0429", "r")
 
 		contents.each_line do | line |
@@ -128,7 +159,7 @@ class Validate
 	end
 
 	def filterBadHits
-		writable = File.open("BadHitsRemoved", "w")
+		writable = File.open("BadHitsRemoved0429", "w")
 		contents = File.open("results_clean0429")
 
 		contents.each_line do | line |
