@@ -30,7 +30,7 @@ class FileUtils
 				idx = url.length-1
 			else
 				idx += 3
-			end		
+			end
 
 			output << {"name" => name, "url" => url[0..idx]}
 		end

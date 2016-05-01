@@ -66,11 +66,14 @@ angular.module("furnitureCluster",['angularModalService','ui.router','ui.bootstr
 
 function roomClusterApi($http, roomClusterUrl) {
 
-	var posturl = roomClusterUrl + '/room';
+	var url = roomClusterUrl + '/room';
 
 	return {
 		buildRoom: function (config) {
-			return $http.post(posturl,config)
+			return $http.post(url,config)
+		},
+		getRoom: function () {
+			return $http.get(url)
 		}
 	}
 }
@@ -95,7 +98,7 @@ function ModelController ($scope, $timeout, $element, close, RoomService) {
 			}, 600);
 		}
 		timer = $timeout(function () {
-			close(result, 0); // close, but give 500ms for bootstrap to animate
+			close(result, 0); // close, but give 600ms for bootstrap to animate
 		}, 600);
 	};
 };
@@ -104,22 +107,18 @@ function RoomCtrl($http,$scope,$timeout,roomClusterApi,RoomService) {
 
 	var config = RoomService.getConfig();
 	$scope.room = null;
-		roomClusterApi.buildRoom(config).success(
-			function() {
-				// $scope.success = 'Post sent.';
-				// loading = false;
-			})
-			.error(function () {
-				// $scope.errorMessage = "POST Request failed";
-				// loading = false;
-			});
+		roomClusterApi.buildRoom(config).success(function() {}).error(function() {});
 			timer = $timeout(function () {
-
-			$http.get('../roomCluster/room.json').success(function (data){
-				$scope.room = data
-			})}, 200);
+				roomClusterApi.getRoom().success(function (data){
+					// var tmp = JSON.parse(data);
+					$scope.room = data["room"];
+					$scope.sofa = data["sofa"];
+					$scope.loveseat = data["loveseat"];
+					$scope.storage = data["storage"];
+					$scope.footstool = data["footstool"];
+				}
+			)}, 400);
 	}
-
 
 	function ClusterCtrl($http,$scope,$state,ModalService,RoomService) {
 
