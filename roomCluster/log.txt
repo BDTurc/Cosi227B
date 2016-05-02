@@ -1,1 +1,0 @@
-{"room"=>{"url"=>"http://www.ikea.com/PIAimages/0326281_PE518316_S3.JPG", "sofa"=>0, "loveseat"=>1, "footstool"=>1, "storage"=>1}}

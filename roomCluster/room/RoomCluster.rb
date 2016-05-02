@@ -15,6 +15,44 @@ class RoomCluster
 		buildRoom(item)
 	end
 
+	def buildUnknownRoom(item1, item2)
+
+		loveCount = 0
+		footCount = 0
+		sofaCount = 0
+		storCount = 0
+
+		start_idx = 0
+
+		@currentRoom.clear
+		@currentRoom << item1
+		@currentRoom << item2
+
+		while sofaCount < @numSofa
+			getSofa
+			sofaCount = sofaCount + 1
+		end
+
+		while loveCount < @numLove
+			getLove
+			loveCount = loveCount + 1
+		end
+
+		while storCount < @numStorage
+			getStorage
+			storCount = storCount + 1
+		end
+
+		while footCount < @numFoot
+			getFoot
+			footCount = footCount + 1
+		end
+
+		room = File.open("room.json","w")
+		room.write(@currentRoom.to_json)
+		room.close	
+	end
+
 	def getTypes
 		contents = File.open("classified.csv", "r")
 		contents.each_line do | row |

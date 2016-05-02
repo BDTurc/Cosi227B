@@ -260,13 +260,15 @@ class RoomCluster
 				sofaScore[sofa] = 0.0
 				@currentRoom.each do | currentPiece |
 					hash = @mainHash[currentPiece]
-					if hash.has_key? sofa
-						sofaScore[sofa] = sofaScore[sofa] + (hash[sofa][0] / (1.0 * hash[sofa][1]))
-					else
-						hash = @mainHash[sofa]
-						if hash != nil
-							if hash.has_key? currentPiece
-								sofaScore[sofa] = sofaScore[sofa] + (hash[currentPiece][0] / (1.0 * hash[currentPiece][1]))
+					if hash != nil
+						if hash.has_key? sofa
+							sofaScore[sofa] = sofaScore[sofa] + (hash[sofa][0] / (1.0 * hash[sofa][1]))
+						else
+							hash = @mainHash[sofa]
+							if hash != nil
+								if hash.has_key? currentPiece
+									sofaScore[sofa] = sofaScore[sofa] + (hash[currentPiece][0] / (1.0 * hash[currentPiece][1]))
+								end
 							end
 						end
 					end

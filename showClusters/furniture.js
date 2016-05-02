@@ -21,10 +21,15 @@ angular.module("furnitureCluster",['angularModalService','ui.router','ui.bootstr
 .service('RoomService', function() {
 	var Curf = "";
 	var sofa,loveseat,storage,footstool = 0;
+	var picks = [];
 
 	var setFurniture = function(image) {
 		Curf = image;
 	};
+
+	var setPicks = function(twoFurn) {
+		picks = twoFurn;
+	}
 
 	var getFurniture = function(){
 		return Curf;
@@ -44,18 +49,19 @@ angular.module("furnitureCluster",['angularModalService','ui.router','ui.bootstr
 	var getConfig = function(){
 		var config = { 'room': {
 			'url': Curf,
+			'picks': picks,
 			'sofa': sofa,
 			'loveseat': loveseat,
 			'footstool': footstool,
 			'storage': storage,
 		}	}
-
 		return config
 	}
 
 	return {
 		setFurniture: setFurniture,
 		getFurniture: getFurniture,
+		setPicks:	setPicks,
 		setFurnCount: setFurnCount,
 		clearFurniture: clearFurniture,
 		getConfig: getConfig
@@ -78,19 +84,52 @@ function roomClusterApi($http, roomClusterUrl) {
 	}
 }
 
-function ModelController ($scope, $timeout, $element, close, RoomService) {
+function ModelController ($scope, $timeout, $element, $http, close, RoomService) {
 
-	$scope.showing = "";
+	$scope.showing = "none";
+	$scope.picked = [];
 	$scope.sofa = 0;
 	$scope.loveseat = 0;
 	$scope.storage = 0;
 	$scope.footstool = 0;
+	$scope.step = 2;
 
 	$scope.showing = RoomService.getFurniture()
+
+	if ($scope.showing == "none") {
+		$scope.step = 1;
+		$http.get('centers.json').success(function (data){
+			$scope.centers = data;
+		});
+	}
+
+	$scope.select = function(image) {
+		var idx = $scope.picked.indexOf(image);
+		if (idx == -1) {
+			if ($scope.picked.length<2) {
+				$scope.picked.push(image)
+			}
+		} else {
+			$scope.picked.splice(idx, 1);
+		}
+	}
+
+	$scope.next = function() {
+		$scope.step = 2;
+	}
+
+	$scope.selected = function(image) {
+		if ($scope.picked.indexOf(image) != -1) {
+			return {"border": "solid 2px black"}
+		} else {
+			return { }
+		}
+	}
 
 	$scope.close = function(result) {
 		if (result=="Yes") {
 			RoomService.setFurnCount($scope.sofa,$scope.loveseat,$scope.storage,$scope.footstool);
+			RoomService.setPicks($scope.picked);
 			$scope.prentending = true;
 			timer = $timeout(function () {
 				$scope.prentending = false;
@@ -100,6 +139,7 @@ function ModelController ($scope, $timeout, $element, close, RoomService) {
 		timer = $timeout(function () {
 			close(result, 0); // close, but give 600ms for bootstrap to animate
 		}, 600);
+		$scope.showing = "none";
 	};
 };
 
@@ -110,7 +150,6 @@ function RoomCtrl($http,$scope,$timeout,roomClusterApi,RoomService) {
 		roomClusterApi.buildRoom(config).success(function() {}).error(function() {});
 			timer = $timeout(function () {
 				roomClusterApi.getRoom().success(function (data){
-					// var tmp = JSON.parse(data);
 					$scope.room = data["room"];
 					$scope.sofa = data["sofa"];
 					$scope.loveseat = data["loveseat"];
@@ -118,29 +157,15 @@ function RoomCtrl($http,$scope,$timeout,roomClusterApi,RoomService) {
 					$scope.footstool = data["footstool"];
 				}
 			)}, 400);
+			RoomService.setPicks([]);
 	}
 
 	function ClusterCtrl($http,$scope,$state,ModalService,RoomService) {
 
-		var shuffle = function(array) {
-			var m = array.length, t, i;
-			// While there remain elements to shuffle
-			while (m) {
-				// Pick a remaining element…
-				i = Math.floor(Math.random() * m--);
-
-				// And swap it with the current element.
-				t = array[m];
-				array[m] = array[i];
-				array[i] = t;
-			}
-			return array;
-		}
-
 		$scope.showing = "";
 
 		$scope.configRoom = function(image) {
-
+			$state.go("explore");
 			RoomService.setFurniture(image)
 
 			ModalService.showModal({
@@ -187,7 +212,7 @@ function RoomCtrl($http,$scope,$timeout,roomClusterApi,RoomService) {
 		}
 
 		$http.get('clusters.json').success(function (data){
-			$scope.images = shuffle(data)
+			$scope.images = data
 		});
 
 		$http.get('catagories.json').success(function (data){

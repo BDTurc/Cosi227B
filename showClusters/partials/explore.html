@@ -9,40 +9,60 @@
             <h4 class="modal-title" style="padding-left:5%">Build-a-Room</h4>
           </div>
           <div class="modal-body">
-            <div class="row">
-              <div class="col-md-4" style="padding-left:5%">
-                <p>Start building with this piece of furniture...</p>
-                <img src={{showing}}></img>
+            <div class="container.fluid">
+              <div class="row" ng-show="step==1">
+                <div class="col-md-10 col-md-offset-1">
+                  <p>Pick TWO pieces of furniture from the below that complements your furniture. We'll build a room for you!</p>
+                </div>
+                <div class="col-sm-4" ng-repeat="(id,center) in centers" ng-click="select(center)" ng-style="selected(center)">
+                  <p>{{id}}.</p>
+                  <img src={{center}} style="width:90%"></img>
+                </div>
+                <div class="col-sm-11 col-sm-offset-1">
+                  <p>Furniture selected: {{picked.length}}</p>
+                </div>
               </div>
-              <div class="col-md-8" style="padding-left:5%">
-                <form class="form-horizontal" role="form">
-                  <div class="form-group" style="padding-right:10%">
-                    <label for="name" class="col-sm-2 control-label">Url</label>
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" id="name" ng-model="showing">
-                    </div>
+              <div class="row" ng-show="step==2">
+                <div class="col-md-4" style="padding-left:5%" ng-show="showing!='none'">
+                  <p>Start building with this piece of furniture...</p>
+                  <img src={{showing}}></img>
+                </div>
+                <div class="col-md-4" style="padding-left:5%" ng-show="showing=='none'">
+                  <p>Start building arond these pieces of furniture...</p>
+                  <div class="row" style="padding-bottom:2%; padding-left:30%" ng-repeat="pick in picked">
+                    <img src={{pick}} style="width:75%"></img>
                   </div>
-                  <div class="form-group" style="padding-right:5%">
-                    <h4 style="padding-left:2%">Enter the numbers of furniture you want in your room:</h4>
-                    <label for="sofa" class="col-sm-2 control-label">Sofa</label>
-                    <div class="col-sm-4">
-                      <input type="number" class="form-control" placeholder="1" ng-model="sofa">
+                </div>
+                <div class="col-md-8" style="padding-left:5%">
+                  <form class="form-horizontal" role="form">
+                    <div class="form-group" style="padding-right:10%" ng-show="showing!='none'">
+                      <label for="name" class="col-sm-2 control-label">Url</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="name" ng-model="showing">
+                      </div>
                     </div>
-                    <label for="love" class="col-sm-2 control-label">Loveseat</label>
-                    <div class="col-sm-4">
-                      <input type="number" class="form-control" placeholder="1" ng-model="loveseat">
-                    </div>
-                    <label for="storage" class="col-sm-2 control-label">Storage</label>
-                    <div class="col-sm-4">
-                      <input type="number" class="form-control" placeholder="1" ng-model="storage">
-                    </div>
-                    <label for="footstool" class="col-sm-2 control-label">Footstool</label>
-                    <div class="col-sm-4">
-                      <input type="number" class="form-control" placeholder="1" ng-model="footstool">
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-6" style="padding-top:5%; padding-left:8%">
-                        <p>(min: 0; max: 5)</p>
+                    <div class="form-group" style="padding-right:5%">
+                      <h4 style="padding-left:2%">Enter the numbers of furniture you want in your room:</h4>
+                      <label for="sofa" class="col-sm-2 control-label">Sofa</label>
+                      <div class="col-sm-4">
+                        <input type="number" class="form-control" placeholder="1" ng-model="sofa">
+                      </div>
+                      <label for="love" class="col-sm-2 control-label">Loveseat</label>
+                      <div class="col-sm-4">
+                        <input type="number" class="form-control" placeholder="1" ng-model="loveseat">
+                      </div>
+                      <label for="storage" class="col-sm-2 control-label">Storage</label>
+                      <div class="col-sm-4">
+                        <input type="number" class="form-control" placeholder="1" ng-model="storage">
+                      </div>
+                      <label for="footstool" class="col-sm-2 control-label">Footstool</label>
+                      <div class="col-sm-4">
+                        <input type="number" class="form-control" placeholder="1" ng-model="footstool">
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-6" style="padding-top:5%; padding-left:8%">
+                          <p>(min: 0; max: 5)</p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -53,7 +73,8 @@
           <div class="modal-footer">
             <img ng-show="prentending" src="images/progressring.gif" style="padding-right:5%"/>
             <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button type="button" ng-click="close('Yes')" class="btn btn-primary">Build It!</button>
+            <button ng-show="step==2" type="button" ng-click="close('Yes')" class="btn btn-primary">Build It!</button>
+            <button ng-show="step==1" type="button" ng-click="next()" class="btn btn-primary">Next >></button>
           </div>
         </div>
       </div>

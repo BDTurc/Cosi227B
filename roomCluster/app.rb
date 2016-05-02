@@ -8,12 +8,18 @@ Dir[File.dirname(__FILE__) + '/room/*.rb'].each {|file| require file }
 post '/room' do
 	params = JSON.parse(request.body.read)
 	url = params["room"]["url"]
+	picks = params["room"]["picks"]
 	sofa = params["room"]["sofa"]
 	loveseat = params["room"]["loveseat"]
 	storage = params["room"]["storage"]
 	footstool = params["room"]["footstool"]
-	RoomCluster.new(url,sofa,footstool,loveseat,storage)
-	Ranker.new(url)
+	if url=="none"
+		Extensible.new(picks[0],picks[1],sofa,footstool,loveseat,storage)
+		Ranker.new(picks.sample)
+	else
+		RoomCluster.new(url,sofa,footstool,loveseat,storage)
+		Ranker.new(url)
+	end
 end
 
 get '/room' do
@@ -22,11 +28,6 @@ get '/room' do
 	loveseat_rank = File.read("loveseat.json")
 	storage_rank = File.read("storage.json")
 	footstool_rank = File.read("foot.json")
-	# results = { "room" => room,
-	# 						"sofa" => sofa_rank,
-	# 						"loveseat" => loveseat_rank,
-	# 						"storage" => storage_rank,
-	# 						"footstool" => footstool_rank }
 	results = { "room" => JSON.parse(room),
 							"sofa" => JSON.parse(sofa_rank),
 							"loveseat" => JSON.parse(loveseat_rank),

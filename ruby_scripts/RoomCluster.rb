@@ -50,7 +50,7 @@ class RoomCluster
 
 		room = File.open("room.json","w")
 		room.write(@currentRoom.to_json)
-		room.close	
+		room.close
 	end
 
 	def getTypes
