@@ -1,3 +1,5 @@
+require 'json'
+
 class RoomCluster
 	def initialize(item, numSofa, numFoot, numLove, numStorage)
 		@numSofa = numSofa.to_i
@@ -11,6 +13,44 @@ class RoomCluster
 		@mainHash = Hash.new
 		@currentRoom = Array.new
 		buildRoom(item)
+	end
+
+	def buildUnknownRoom(item1, item2)
+
+		loveCount = 0
+		footCount = 0
+		sofaCount = 0
+		storCount = 0
+
+		start_idx = 0
+
+		@currentRoom.clear
+		@currentRoom << item1
+		@currentRoom << item2
+
+		while sofaCount < @numSofa
+			getSofa
+			sofaCount = sofaCount + 1
+		end
+
+		while loveCount < @numLove
+			getLove
+			loveCount = loveCount + 1
+		end
+
+		while storCount < @numStorage
+			getStorage
+			storCount = storCount + 1
+		end
+
+		while footCount < @numFoot
+			getFoot
+			footCount = footCount + 1
+		end
+
+		room = File.open("room.json","w")
+		room.write(@currentRoom.to_json)
+		room.close	
 	end
 
 	def getTypes
@@ -170,11 +210,9 @@ class RoomCluster
 			footCount = footCount + 1
 		end
 
-		@room = File.open("room.html", "w")
-		@room.puts "<html><head><title>Room</title></head><body>"
-		@currentRoom.each do | furn |
-			img_to_tag furn
-		end
+		room = File.open("room.json","w")
+		room.write(@currentRoom.to_json)
+		room.close
 	end
 
 	def img_to_tag item
@@ -362,4 +400,4 @@ class RoomCluster
 	end
 end
 
-RoomCluster.new(ARGV[0], ARGV[1], ARGV[2], ARGV[3], ARGV[4])
+# RoomCluster.new(ARGV[0], ARGV[1], ARGV[2], ARGV[3], ARGV[4])
