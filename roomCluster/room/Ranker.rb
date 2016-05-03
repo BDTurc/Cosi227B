@@ -85,7 +85,7 @@ class Ranker
 	end
 
 	def compare(item)
-		results = File.open("../clustering/results")
+		results = File.open("../clustering/results_all")
 		results.each_line do | row |
 			content = row.split(",")
 			mainPiece = content[2].strip
