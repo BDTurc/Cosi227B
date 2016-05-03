@@ -10,6 +10,7 @@ class RoomCluster
 		@types = Hash.new
 		@typeLookup = Hash.new
 		getTypes
+		@maxRetries = 10
 		@mainHash = Hash.new
 		@currentRoom = Array.new
 		buildRoom(item)
@@ -245,24 +246,14 @@ class RoomCluster
 
 		currentBest = 0
 		winner = ""
+		currentAttempt = 0
 
-		bestPicks = Array.new
-		sofaScore.each do |k, v|
-			if v > currentBest
-				currentBest = v
-				bestPicks.clear
-				bestPicks << k
-			elsif v == currentBest
-				bestPicks << k
-			end
+		sofaSorted = sofaScore.sort_by {|key, value| value}.reverse
+
+		while currentAttempt < @numSofa && currentAttempt < sofaSorted.length
+			@currentRoom << sofaSorted[currentAttempt]
+			currentAttempt = currentAttempt + 1
 		end
-
-		itemToAdd = bestPicks.sample
-		while @currentRoom.include? itemToAdd
-			itemToAdd = bestPicks.sample
-		end
-
-		@currentRoom << itemToAdd
 	end
 
 	def getFoot
@@ -289,24 +280,14 @@ class RoomCluster
 
 		currentBest = 0
 		winner = ""
+		currentAttempt = 0
 
-		bestPicks = Array.new
-		sofaScore.each do |k, v|
-			if v > currentBest
-				currentBest = v
-				bestPicks.clear
-				bestPicks << k
-			elsif v == currentBest
-				bestPicks << k
-			end
+		sofaSorted = sofaScore.sort_by {|key, value| value}.reverse
+
+		while currentAttempt < @numFoot && currentAttempt < sofaSorted.length
+			@currentRoom << sofaSorted[currentAttempt]
+			currentAttempt = currentAttempt + 1
 		end
-
-		itemToAdd = bestPicks.sample
-		while @currentRoom.include? itemToAdd
-			itemToAdd = bestPicks.sample
-		end
-
-		@currentRoom << itemToAdd
 	end
 
 	def getStorage
@@ -333,25 +314,14 @@ class RoomCluster
 
 		currentBest = 0
 		winner = ""
+		currentAttempt = 0
 
-		bestPicks = Array.new
-		sofaScore.each do |k, v|
-			if v > currentBest
-				currentBest = v
-				bestPicks.clear
-				bestPicks << k
-			elsif v == currentBest
-				bestPicks << k
-			end
+		sofaSorted = sofaScore.sort_by {|key, value| value}.reverse
+
+		while currentAttempt < @numStorage && currentAttempt < sofaSorted.length
+			@currentRoom << sofaSorted[currentAttempt]
+			currentAttempt = currentAttempt + 1
 		end
-
-
-		itemToAdd = bestPicks.sample
-		while @currentRoom.include? itemToAdd
-			itemToAdd = bestPicks.sample
-		end
-
-		@currentRoom << itemToAdd
 	end
 
 	def getLove
@@ -378,25 +348,13 @@ class RoomCluster
 
 		currentBest = 0
 		winner = ""
+		currentAttempt = 0
+		sofaSorted = sofaScore.sort_by {|key, value| value}.reverse
 
-		bestPicks = Array.new
-		sofaScore.each do |k, v|
-			if v > currentBest
-				currentBest = v
-				bestPicks.clear
-				bestPicks << k
-			elsif v == currentBest
-				bestPicks << k
-			end
+		while currentAttempt < @numLove && currentAttempt < sofaSorted.length
+			@currentRoom << sofaSorted[currentAttempt]
+			currentAttempt = currentAttempt + 1
 		end
-
-
-		itemToAdd = bestPicks.sample
-		while @currentRoom.include? itemToAdd
-			itemToAdd = bestPicks.sample
-		end
-
-		@currentRoom << itemToAdd
 	end
 end
 
