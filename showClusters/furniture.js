@@ -68,7 +68,12 @@ angular.module("furnitureCluster",['angularModalService','ui.router','ui.bootstr
 	};
 })
 .factory('roomClusterApi', roomClusterApi)
-.constant('roomClusterUrl', 'http://localhost:4567');
+.constant('roomClusterUrl', 'http://localhost:4567')
+.constant('ikeaLink', 'http://www.ikea.com/us/en/')
+.constant('centersFile','centers.json');
+.constant('clustersFile','clusters.json')
+
+// ============================================================================================================================
 
 function roomClusterApi($http, roomClusterUrl) {
 
@@ -84,7 +89,7 @@ function roomClusterApi($http, roomClusterUrl) {
 	}
 }
 
-function ModelController ($scope, $timeout, $element, $http, close, RoomService) {
+function ModelController ($scope, $timeout, $element, $http, close, RoomService, centersFile) {
 
 	$scope.showing = "none";
 	$scope.picked = [];
@@ -98,7 +103,7 @@ function ModelController ($scope, $timeout, $element, $http, close, RoomService)
 
 	if ($scope.showing == "none") {
 		$scope.step = 1;
-		$http.get('centers.json').success(function (data){
+		$http.get(centersFile).success(function (data){
 			$scope.centers = data;
 		});
 	}
@@ -134,7 +139,7 @@ function ModelController ($scope, $timeout, $element, $http, close, RoomService)
 			timer = $timeout(function () {
 				$scope.prentending = false;
 				$element.modal('hide');
-			}, 600);
+			}, 500);
 		}
 		timer = $timeout(function () {
 			close(result, 0); // close, but give 600ms for bootstrap to animate
@@ -145,9 +150,11 @@ function ModelController ($scope, $timeout, $element, $http, close, RoomService)
 
 function RoomCtrl($http,$scope,$timeout,roomClusterApi,RoomService) {
 
+	$scope.waiting = false;
 	var config = RoomService.getConfig();
 	$scope.room = null;
 		roomClusterApi.buildRoom(config).success(function() {}).error(function() {});
+			$scope.waiting = true;
 			timer = $timeout(function () {
 				roomClusterApi.getRoom().success(function (data){
 					$scope.room = data["room"];
@@ -156,13 +163,15 @@ function RoomCtrl($http,$scope,$timeout,roomClusterApi,RoomService) {
 					$scope.storage = data["storage"];
 					$scope.footstool = data["footstool"];
 				}
-			)}, 400);
+			)}, 600);
+			$scope.waiting = false;
 			RoomService.setPicks([]);
 	}
 
-	function ClusterCtrl($http,$scope,$state,ModalService,RoomService) {
+	function ClusterCtrl($http,$scope,$state,ModalService,RoomService,ikeaLink,clustersFile) {
 
 		$scope.showing = "";
+		$scope.ikeaLink = ikeaLink;
 
 		$scope.configRoom = function(image) {
 			$state.go("explore");
@@ -211,7 +220,7 @@ function RoomCtrl($http,$scope,$timeout,roomClusterApi,RoomService) {
 			}
 		}
 
-		$http.get('clusters.json').success(function (data){
+		$http.get(clustersFile).success(function (data){
 			$scope.images = data
 		});
 
