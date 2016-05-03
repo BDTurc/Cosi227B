@@ -230,7 +230,7 @@ class RoomCluster
 				sofaScore[sofa] = 0.0
 				@currentRoom.each do | currentPiece |
 					hash = @mainHash[currentPiece]
-					if hash != nil && hash.has_key? sofa
+					if (hash != nil) && (hash.has_key? sofa)
 						sofaScore[sofa] = sofaScore[sofa] + (hash[sofa][0] / (1.0 * hash[sofa][1]))
 					else
 						hash = @mainHash[sofa]
@@ -250,6 +250,8 @@ class RoomCluster
 
 		sofaSorted = sofaScore.sort_by {|key, value| value}.reverse
 
+		sofaSorted = cleanArray(sofaSorted)
+		
 		while currentAttempt < @numSofa && currentAttempt < sofaSorted.length
 			@currentRoom << sofaSorted[currentAttempt]
 			currentAttempt = currentAttempt + 1
@@ -264,7 +266,7 @@ class RoomCluster
 				sofaScore[sofa] = 0.0
 				@currentRoom.each do | currentPiece |
 					hash = @mainHash[currentPiece]
-					if hash != nil && hash.has_key? sofa
+					if (hash != nil) && (hash.has_key? sofa)
 						sofaScore[sofa] = sofaScore[sofa] + (hash[sofa][0] / (1.0 * hash[sofa][1]))
 					else
 						hash = @mainHash[sofa]
@@ -283,11 +285,23 @@ class RoomCluster
 		currentAttempt = 0
 
 		sofaSorted = sofaScore.sort_by {|key, value| value}.reverse
+		sofaSorted = cleanArray(sofaSorted)
 
 		while currentAttempt < @numFoot && currentAttempt < sofaSorted.length
 			@currentRoom << sofaSorted[currentAttempt]
+			puts sofaSorted[currentAttempt]
 			currentAttempt = currentAttempt + 1
 		end
+	end
+
+	def cleanArray(itemArray)
+		returnArray = Array.new
+
+		itemArray.each do | item |
+			returnArray << item[0]
+		end
+
+		return returnArray
 	end
 
 	def getStorage
@@ -298,7 +312,7 @@ class RoomCluster
 				sofaScore[sofa] = 0.0
 				@currentRoom.each do | currentPiece |
 					hash = @mainHash[currentPiece]
-					if hash != nil && hash.has_key? sofa
+					if (hash != nil) && (hash.has_key? sofa)
 						sofaScore[sofa] = sofaScore[sofa] + (hash[sofa][0] / (hash[sofa][1] * 1.0))
 					else
 						hash = @mainHash[sofa]
@@ -317,6 +331,7 @@ class RoomCluster
 		currentAttempt = 0
 
 		sofaSorted = sofaScore.sort_by {|key, value| value}.reverse
+		sofaSorted = cleanArray(sofaSorted)
 
 		while currentAttempt < @numStorage && currentAttempt < sofaSorted.length
 			@currentRoom << sofaSorted[currentAttempt]
@@ -332,7 +347,7 @@ class RoomCluster
 				sofaScore[sofa] = 0.0
 				@currentRoom.each do | currentPiece |
 					hash = @mainHash[currentPiece]
-					if hash.nil? && hash.has_key? sofa
+					if (hash != nil) && (hash.has_key? sofa)
 						sofaScore[sofa] = sofaScore[sofa] + (hash[sofa][0] / (1.0 * hash[sofa][1]))
 					else
 						hash = @mainHash[sofa]
@@ -351,6 +366,8 @@ class RoomCluster
 		currentAttempt = 0
 		sofaSorted = sofaScore.sort_by {|key, value| value}.reverse
 
+		sofaSorted = cleanArray(sofaSorted)
+
 		while currentAttempt < @numLove && currentAttempt < sofaSorted.length
 			@currentRoom << sofaSorted[currentAttempt]
 			currentAttempt = currentAttempt + 1
@@ -358,4 +375,4 @@ class RoomCluster
 	end
 end
 
-# RoomCluster.new(ARGV[0], ARGV[1], ARGV[2], ARGV[3], ARGV[4])
+RoomCluster.new(ARGV[0], ARGV[1], ARGV[2], ARGV[3], ARGV[4])
