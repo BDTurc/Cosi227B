@@ -194,7 +194,7 @@ class Ranker
 			if !@sofaRanking.include? sofa
 				@sofaRanking[sofa] = 0.0
 				hash = @mainHash[@item]
-					if hash.has_key? sofa
+					if hash != nil && hash.has_key? sofa
 						@sofaRanking[sofa] = @sofaRanking[sofa] + (hash[sofa][0] / (1.0 * hash[sofa][1]))
 					else
 						hash = @mainHash[sofa]
@@ -215,7 +215,7 @@ class Ranker
 			if !@footstoolRanking.include? sofa
 				@footstoolRanking[sofa] = 0.0
 				hash = @mainHash[@item]
-					if hash.has_key? sofa
+					if hash != nil && hash.has_key? sofa
 						@footstoolRanking[sofa] = @footstoolRanking[sofa] + (hash[sofa][0] / (1.0 * hash[sofa][1]))
 					else
 						hash = @mainHash[sofa]
@@ -236,7 +236,7 @@ class Ranker
 			if !@loveseatRanking.include? sofa
 				@loveseatRanking[sofa] = 0.0
 				hash = @mainHash[@item]
-					if hash.has_key? sofa
+					if hash != nil && hash.has_key? sofa
 						@loveseatRanking[sofa] = @loveseatRanking[sofa]  + (hash[sofa][0] / (1.0 * hash[sofa][1]))
 					else
 						hash = @mainHash[sofa]
@@ -257,7 +257,7 @@ class Ranker
 			if !@storageRanking.include? sofa
 				@storageRanking[sofa] = 0.0
 				hash = @mainHash[@item]
-					if hash.has_key? sofa
+					if hash != nil && hash.has_key? sofa
 						@storageRanking[sofa] = @storageRanking[sofa] + (hash[sofa][0] / (1.0 * hash[sofa][1]))
 					else
 						hash = @mainHash[sofa]
